@@ -4,7 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aplikasi BAPER</title>
+
     <link rel="stylesheet" href="css/baper.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -211,6 +213,7 @@
                 <td>10077696</td>
                 <td>60466176</td>
               </tr>
+              session
               <tr>
                 <td><b>7</b></td>
                 <td>49</td>
@@ -415,7 +418,6 @@
                 <td>...</td>
                 <td>...</td>
               </tr>
-              Read 24.7%
               <tr>
                 <td><b>24</b></td>
                 <td>576</td>
@@ -781,9 +783,12 @@
             '<p class="no-skor">Belum ada skor yang disimpan.</p>';
         } else {
           const ol = document.createElement("ol");
-          leaderboard.forEach((item) => {
+          leaderboard.forEach((item, index) => {
+            // Tambahkan index
             const li = document.createElement("li");
-            li.innerHTML = `<span class="nama">${item.nama}</span><span class="skor">${item.skor} Benar</span>`;
+            li.innerHTML = `<span class="nama">${index + 1}. ${
+              item.nama
+            }</span><span class="skor">${item.skor} Benar</span>`;
             ol.appendChild(li);
           });
           leaderboardList.appendChild(ol);
@@ -836,6 +841,7 @@
 
       function tampilkanSoal() {
         soalText.innerHTML = soalSekarang.soal;
+        // Kita tetap pakai MathJax untuk SOAL agar terlihat bagus
         MathJax.Hub.Queue(["Typeset", MathJax.Hub, "soal-box"]);
       }
 
