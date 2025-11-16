@@ -10,6 +10,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
     <script
       type="text/javascript"
       async
@@ -40,7 +43,7 @@
       </div>
     </div>
 
-    <div class="app-container" id="app-container" style="display: none">
+    <div class="app-container" id="app-container">
       <header class="app-header">
         <h1 class="app-title">BAPER</h1>
         <p class="app-subtitle">Belajar Akar dan Perpangkatan</p>
@@ -247,7 +250,6 @@
                 <td>387420489</td>
                 <td>3486784401</td>
               </tr>
-              Mulai Main
               <tr>
                 <td><b>10</b></td>
                 <td>100</td>
@@ -541,15 +543,28 @@
       <div class="modal-content">
         <button class="modal-close-btn" id="close-leaderboard">&times;</button>
         <h2><i class="fas fa-trophy"></i> Papan Peringkat</h2>
-        <p>
-          Skor tertinggi yang tersimpan di browser ini. Skor akan di-reset jika
-          cache browser dihapus.
-        </p>
+        <p>Skor tertinggi dari semua pemain. Diambil 20 teratas.</p>
         <div class="leaderboard-list" id="leaderboard-list"></div>
       </div>
     </div>
 
     <script>
+      // --- 1. INISIALISASI FIREBASE ---
+      // KODE ANDA SUDAH SAYA MASUKKAN DI SINI
+      const firebaseConfig = {
+        apiKey: "AIzaSyBgWek_l5a2l8D2cXDeiFZd0LajiNp0igs",
+        authDomain: "belajar-akar-dan-perpangkatan.firebaseapp.com",
+        projectId: "belajar-akar-dan-perpangkatan",
+        storageBucket: "belajar-akar-dan-perpangkatan.firebasestorage.app",
+        messagingSenderId: "123804726222",
+        appId: "1:123804726222:web:6a0bf770e0f2faf48e319f",
+        measurementId: "G-D70L4L2QFX",
+      };
+
+      // Inisialisasi Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore(); // Objek database kita
+
       // --- Variabel Global ---
       let soalSekarang = null;
       let isSpinning = false;
@@ -589,6 +604,11 @@
       const startBtn = document.getElementById("start-btn");
 
       // --- Event Listener Modal Nama (BARU) ---
+      // Tampilkan modal nama saat halaman dimuat
+      document.addEventListener("DOMContentLoaded", () => {
+        nameModal.style.display = "flex";
+      });
+
       startBtn.addEventListener("click", function () {
         const nama = nameInput.value.trim();
         if (nama === "") {
@@ -723,7 +743,7 @@
       }
 
       // =============================================
-      // --- FUNGSI SKOR & PAPAN PERINGKAT (DIPERBAIKI) ---
+      // --- FUNGSI SKOR & PAPAN PERINGKAT (DIPERBAIKI DENGAN FIREBASE) ---
       // =============================================
 
       function updateSkor() {
@@ -737,54 +757,75 @@
           return;
         }
 
-        const leaderboard = dapatkanPapanPeringkat();
-        leaderboard.push({ nama: namaPemainSaatIni, skor: skorBenar });
+        simpanSkorBtn.disabled = true;
+        simpanSkorBtn.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
 
-        // Urutkan dari skor tertinggi
-        leaderboard.sort((a, b) => b.skor - a.skor);
-
-        // --- INI PERBAIKANNYA ---
-        // Ambil 20 teratas, BUKAN 5
-        const top20 = leaderboard.slice(0, 20);
-
-        // Simpan kembali HANYA 20 teratas
-        localStorage.setItem("baperLeaderboard", JSON.stringify(top20));
-
-        alert(`Skor ${skorBenar} untuk ${namaPemainSaatIni} telah disimpan!`);
-
-        // Tampilkan papan peringkat
-        tampilkanPapanPeringkat();
-      }
-
-      function dapatkanPapanPeringkat() {
-        const data = localStorage.getItem("baperLeaderboard");
-        return data ? JSON.parse(data) : [];
+        // GANTI localStorage DENGAN FIREBASE
+        db.collection("leaderboard")
+          .add({
+            nama: namaPemainSaatIni,
+            skor: skorBenar,
+            createdAt: new Date(), // Simpan tanggal
+          })
+          .then(() => {
+            alert(
+              `Skor ${skorBenar} untuk ${namaPemainSaatIni} telah disimpan!`
+            );
+            simpanSkorBtn.disabled = false;
+            simpanSkorBtn.innerHTML = '<i class="fas fa-save"></i> Simpan Skor';
+            tampilkanPapanPeringkat();
+          })
+          .catch((error) => {
+            console.error("Error adding document: ", error);
+            alert(
+              "Gagal menyimpan skor. Cek koneksi internet atau konsol (F12)."
+            );
+            simpanSkorBtn.disabled = false;
+            simpanSkorBtn.innerHTML = '<i class="fas fa-save"></i> Simpan Skor';
+          });
       }
 
       function tampilkanPapanPeringkat() {
-        const leaderboard = dapatkanPapanPeringkat();
-        leaderboardList.innerHTML = ""; // Kosongkan daftar
-
-        if (leaderboard.length === 0) {
-          leaderboardList.innerHTML =
-            '<p class="no-skor">Belum ada skor yang disimpan.</p>';
-        } else {
-          const ol = document.createElement("ol");
-          leaderboard.forEach((item, index) => {
-            // Tambahkan index
-            const li = document.createElement("li");
-            li.innerHTML = `<span class="nama">${index + 1}. ${
-              item.nama
-            }</span><span class="skor">${item.skor} Benar</span>`;
-            ol.appendChild(li);
-          });
-          leaderboardList.appendChild(ol);
-        }
         leaderboardModal.style.display = "flex";
+        leaderboardList.innerHTML =
+          '<p class="no-skor">Memuat papan peringkat...</p>';
+
+        // GANTI localStorage DENGAN FIREBASE
+        db.collection("leaderboard")
+          .orderBy("skor", "desc")
+          .limit(20)
+          .get() // <-- PERBAIKAN 20 BESAR
+          .then((querySnapshot) => {
+            if (querySnapshot.empty) {
+              leaderboardList.innerHTML =
+                '<p class="no-skor">Belum ada skor yang disimpan.</p>';
+              return;
+            }
+
+            leaderboardList.innerHTML = ""; // Kosongkan daftar
+            const ol = document.createElement("ol");
+            let rank = 1;
+
+            querySnapshot.forEach((doc) => {
+              const item = doc.data();
+              const li = document.createElement("li");
+              li.innerHTML = `<span class="nama">${rank}. ${item.nama}</span><span class="skor">${item.skor} Benar</span>`;
+              ol.appendChild(li);
+              rank++;
+            });
+
+            leaderboardList.appendChild(ol);
+          })
+          .catch((error) => {
+            console.error("Error getting documents: ", error);
+            leaderboardList.innerHTML =
+              '<p class="no-skor">Gagal memuat papan peringkat. Cek koneksi internet.</p>';
+          });
       }
 
       // =============================================
-      // --- FUNGSI UTAMA APLIKASI (PUTARAN SUDAH BENAR) ---
+      // --- FUNGSI UTAMA APLIKASI (TETAP SAMA) ---
       // =============================================
 
       function putarRoda() {
