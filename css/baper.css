@@ -258,6 +258,11 @@ body {
 .simpan-skor-btn .fas {
   margin-right: 0.5rem;
 }
+.simpan-skor-btn:disabled {
+  /* Gaya saat loading */
+  background-color: #333;
+  cursor: not-allowed;
+}
 
 /* Kolom Kanan */
 .right-column {
@@ -416,7 +421,7 @@ body {
 /* ======================================== */
 
 .modal-overlay {
-  display: none; /* --- PERBAIKAN UTAMA: SEMBUNYI SECARA DEFAULT --- */
+  display: none; /* --- SEMUA MODAL SEMBUNYI --- */
   position: fixed;
   top: 0;
   left: 0;
@@ -424,6 +429,7 @@ body {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 1000;
+  /* 'display: flex' dipindahkan ke #name-modal */
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(5px);
@@ -493,7 +499,7 @@ body {
   max-height: 90vh;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   position: relative;
-  display: flex;
+  display: flex; /* Ini untuk konten di DALAM modal */
   flex-direction: column;
 }
 
