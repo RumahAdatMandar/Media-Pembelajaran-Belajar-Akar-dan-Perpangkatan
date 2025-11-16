@@ -23,7 +23,24 @@
     </script>
   </head>
   <body>
-    <div class="app-container">
+    <div class="modal-overlay" id="name-modal" style="display: flex">
+      <div class="name-modal-content">
+        <h2>Selamat Datang di BAPER!</h2>
+        <p>
+          Masukkan namamu untuk memulai permainan dan menyimpan skor di Papan
+          Peringkat.
+        </p>
+        <input
+          type="text"
+          id="name-input"
+          placeholder="Ketik namamu di sini..."
+          maxlength="20"
+        />
+        <button class="btn-mulai" id="start-btn">Mulai Main</button>
+      </div>
+    </div>
+
+    <div class="app-container" id="app-container" style="display: none">
       <header class="app-header">
         <h1 class="app-title">BAPER</h1>
         <p class="app-subtitle">Belajar Akar dan Perpangkatan</p>
@@ -398,6 +415,7 @@
                 <td>...</td>
                 <td>...</td>
               </tr>
+              Read 24.7%
               <tr>
                 <td><b>24</b></td>
                 <td>576</td>
@@ -535,17 +553,17 @@
       // --- Variabel Global ---
       let soalSekarang = null;
       let isSpinning = false;
-      const segmentColors = ["red", "yellow", "green"]; // 3 Warna
-      const segmentAngle = 120; // 360 / 3 segmen
-
-      // --- PERBAIKAN LOGIKA PUTARAN ---
-      let currentRotation = 0; // Variabel baru untuk melacak total putaran
-
-      // --- Variabel SKOR & PAPAN PERINGKAT ---
+      const segmentColors = ["red", "yellow", "green"];
+      const segmentAngle = 120;
+      let currentRotation = 0;
       let skorBenar = 0;
       let totalSoal = 0;
 
+      // --- Variabel Nama Pemain (BARU) ---
+      let namaPemainSaatIni = "";
+
       // --- Elemen DOM ---
+      const appContainer = document.getElementById("app-container"); // Kontainer utama
       const spinner = document.getElementById("spinner");
       const spinBtn = document.getElementById("spin-btn");
       const soalText = document.getElementById("soal-text");
@@ -573,14 +591,29 @@
       const closeLeaderboardBtn = document.getElementById("close-leaderboard");
       const leaderboardList = document.getElementById("leaderboard-list");
 
-      // --- Event Listeners ---
+      // --- Elemen DOM Modal Nama (BARU) ---
+      const nameModal = document.getElementById("name-modal");
+      const nameInput = document.getElementById("name-input");
+      const startBtn = document.getElementById("start-btn");
+
+      // --- Event Listener Modal Nama (BARU) ---
+      startBtn.addEventListener("click", function () {
+        const nama = nameInput.value.trim();
+        if (nama === "") {
+          alert("Harap masukkan namamu!");
+        } else {
+          namaPemainSaatIni = nama; // Simpan nama secara global
+          nameModal.style.display = "none"; // Sembunyikan modal nama
+          appContainer.style.display = "block"; // Tampilkan aplikasi utama
+        }
+      });
+
+      // --- Event Listeners Lainnya ---
       spinBtn.addEventListener("click", putarRoda);
       cekBtn.addEventListener("click", cekJawaban);
       jawabanInput.addEventListener("keydown", function (e) {
         if (e.key === "Enter") cekJawaban();
       });
-
-      // --- Event Listeners Modal ---
       openReferensiBtn.addEventListener(
         "click",
         () => (referensiModal.style.display = "flex")
@@ -592,7 +625,6 @@
       referensiModal.addEventListener("click", (e) => {
         if (e.target === referensiModal) referensiModal.style.display = "none";
       });
-
       openTipsBtn.addEventListener(
         "click",
         () => (tipsModal.style.display = "flex")
@@ -604,8 +636,6 @@
       tipsModal.addEventListener("click", (e) => {
         if (e.target === tipsModal) tipsModal.style.display = "none";
       });
-
-      // --- Event Listeners Papan Peringkat ---
       openLeaderboardBtn.addEventListener("click", tampilkanPapanPeringkat);
       closeLeaderboardBtn.addEventListener(
         "click",
@@ -618,7 +648,7 @@
       simpanSkorBtn.addEventListener("click", simpanSkor);
 
       // =============================================
-      // --- SISTEM GENERATOR SOAL (SUDAH DISESUAIKAN) ---
+      // --- SISTEM GENERATOR SOAL (LOGIKA BARU) ---
       // =============================================
       function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -631,10 +661,9 @@
         return {
           soal: `Berapakah $\\sqrt{${hasil}}$?`,
           jawaban: x.toString(),
-          pembahasan: `<b>Penjelasan (Cek Tabel):</b><br>
-                    1. Soal adalah akar pangkat 2 (kuadrat). Kita fokus pada kolom <b>x²</b> di Tabel Referensi.<br>
-                    2. Cari angka <b>${hasil}</b> di kolom <b>x²</b>.<br>
-                    3. Angka yang sejajar di kolom <b>x</b> adalah <b>${x}</b>.`,
+          pembahasan: `<b>Penjelasan:</b><br>
+                    Jawaban yang benar adalah <b>${x}</b>.<br>
+                    Ini karena <b>${x}</b> pangkat 2 (atau <b>${x}</b> × <b>${x}</b>) adalah <b>${hasil}</b>.`,
         };
       }
 
@@ -642,32 +671,45 @@
         // KUNING
         const x = getRandomInt(2, 25);
         const hasil = Math.pow(x, 3);
+
+        if (hasil > 100000) {
+          return generateAkarKubik();
+        }
+
         return {
           soal: `Berapakah $\\sqrt[3]{${hasil}}$?`,
           jawaban: x.toString(),
-          pembahasan: `<b>Penjelasan (Cek Tabel):</b><br>
-                    1. Soal adalah akar pangkat 3 (kubik). Kita fokus pada kolom <b>x³</b> di Tabel Referensi.<br>
-                    2. Cari angka <b>${hasil}</b> di kolom <b>x³</b>.<br>
-                    3. Angka yang sejajar di kolom <b>x</b> adalah <b>${x}</b>.`,
+          pembahasan: `<b>Penjelasan:</b><br>
+                    Jawaban yang benar adalah <b>${x}</b>.<br>
+                    Ini karena <b>${x}</b> pangkat 3 (atau <b>${x}</b> × <b>${x}</b> × <b>${x}</b>) adalah <b>${hasil}</b>.`,
         };
       }
 
       function generateAkarPangkatN() {
         // HIJAU
-        const x = getRandomInt(2, 25);
-        const n = getRandomInt(4, 10);
-        const hasil = Math.pow(x, n);
-        const hasilFormatted =
-          hasil > 9999999999
-            ? hasil.toExponential(4)
-            : hasil.toLocaleString("id-ID");
+        let n, x, hasil;
+        do {
+          n = getRandomInt(4, 10);
+          x = getRandomInt(2, 25);
+          hasil = Math.pow(x, n);
+        } while (hasil > 100000);
+
+        const hasilFormatted = hasil.toLocaleString("id-ID");
+
+        let multiString = "";
+        for (let i = 0; i < n; i++) {
+          multiString += x;
+          if (i < n - 1) {
+            multiString += " × ";
+          }
+        }
+
         return {
           soal: `Berapakah $\\sqrt[${n}]{${hasilFormatted}}$?`,
           jawaban: x.toString(),
-          pembahasan: `<b>Penjelasan (Cek Tabel):</b><br>
-                    1. Soal adalah akar pangkat <b>${n}</b>. Kita fokus pada kolom <b>x<sup>${n}</sup></b> di Tabel Referensi.<br>
-                    2. Cari angka <b>${hasilFormatted}</b> (atau yang mendekati) di kolom <b>x<sup>${n}</sup></b>.<br>
-                    3. Angka yang sejajar di kolom <b>x</b> adalah <b>${x}</b>.`,
+          pembahasan: `<b>Penjelasan:</b><br>
+                    Jawaban yang benar adalah <b>${x}</b>.<br>
+                    Ini karena <b>${x}</b> pangkat <b>${n}</b> (yaitu <b>${multiString}</b>) adalah <b>${hasilFormatted}</b>.`,
         };
       }
 
@@ -689,7 +731,7 @@
       }
 
       // =============================================
-      // --- FUNGSI SKOR & PAPAN PERINGKAT ---
+      // --- FUNGSI SKOR & PAPAN PERINGKAT (DIPERBAIKI) ---
       // =============================================
 
       function updateSkor() {
@@ -702,19 +744,26 @@
           alert("Skor Anda masih 0. Jawab soal dengan benar terlebih dahulu!");
           return;
         }
-        const namaPemain = prompt(
-          "Masukkan namamu untuk disimpan di Papan Peringkat:",
-          "Siswa"
-        );
-        if (namaPemain === null || namaPemain.trim() === "") {
-          return; // Batal
-        }
+        // HAPUS prompt()
+        // const namaPemain = prompt("Masukkan namamu...", "Siswa");
 
+        // LANGSUNG GUNAKAN NAMA YANG SUDAH DISIMPAN
         const leaderboard = dapatkanPapanPeringkat();
-        leaderboard.push({ nama: namaPemain, skor: skorBenar });
+        leaderboard.push({ nama: namaPemainSaatIni, skor: skorBenar });
+
+        // Urutkan dari skor tertinggi
         leaderboard.sort((a, b) => b.skor - a.skor);
-        const top5 = leaderboard.slice(0, 5);
-        localStorage.setItem("baperLeaderboard", JSON.stringify(top5));
+
+        // --- INI PERBAIKANNYA ---
+        // HAPUS .slice(0, 5) AGAR SEMUA SKOR TERSIMPAN
+        // const top5 = leaderboard.slice(0, 5);
+
+        // Simpan kembali SELURUH leaderboard
+        localStorage.setItem("baperLeaderboard", JSON.stringify(leaderboard));
+
+        alert(`Skor ${skorBenar} untuk ${namaPemainSaatIni} telah disimpan!`);
+
+        // Tampilkan papan peringkat
         tampilkanPapanPeringkat();
       }
 
@@ -743,7 +792,7 @@
       }
 
       // =============================================
-      // --- FUNGSI UTAMA APLIKASI (PERBAIKAN PUTARAN) ---
+      // --- FUNGSI UTAMA APLIKASI (PUTARAN SUDAH BENAR) ---
       // =============================================
 
       function putarRoda() {
@@ -751,10 +800,7 @@
         isSpinning = true;
         resetTampilan();
 
-        // --- INI PERBAIKANNYA ---
-        // 1. Tentukan jumlah putaran baru (minimal 5 putaran)
         const randomSpinAmount = Math.floor(Math.random() * 360) + 360 * 5;
-        // 2. TAMBAHKAN ke total putaran sebelumnya
         currentRotation += randomSpinAmount;
 
         const finalDeg = currentRotation % 360;
@@ -768,19 +814,14 @@
           warnaHasil = "green";
         }
 
-        // 3. Terapkan transisi dan putar ke total yang BARU
         spinner.style.transition =
           "transform 4s cubic-bezier(0.33, 1, 0.68, 1)";
         spinner.style.transform = `rotate(${currentRotation}deg)`;
-        // ------------------------
 
         setTimeout(() => {
           soalSekarang = getSoalByWarna(warnaHasil);
           tampilkanSoal();
           isSpinning = false;
-
-          // HAPUS reset transform. Biarkan spinner "mengingat"
-          // posisi putaran totalnya (misal 3950deg)
         }, 4000);
       }
 
@@ -816,8 +857,8 @@
         if (jawabanUser.toLowerCase() === soalSekarang.jawaban.toLowerCase()) {
           skorBenar++;
           pembahasanBox.innerHTML = soalSekarang.pembahasan.replace(
-            "<b>Penjelasan",
-            "<b>Benar!</b> Penjelasan"
+            "<b>Penjelasan:",
+            "<b>Benar!</b> Penjelasan:"
           );
           pembahasanBox.className = "pembahasan-box benar";
         } else {
