@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Materi & Referensi - BAPER</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <script
+      type="text/javascript"
+      async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+    ></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+          showMathMenu: false
+      });
+    </script>
+  </head>
+  <body>
+    <div class="background-image"></div>
+
+    <div class="materi-container">
+      <a href="index.html" class="btn btn-back">
+        <i class="fas fa-arrow-left"></i> Kembali ke Menu
+      </a>
+
+      <h1>Materi Lengkap: Pangkat, Akar, & Bentuk Baku</h1>
+
+      <section class="materi-section">
+        <h2>1. Bilangan Berpangkat (Eksponen)</h2>
+        <p>
+          Bentuk pangkat adalah perkalian berulang. $a^n$ berarti $a$ dikalikan
+          dengan dirinya sendiri sebanyak $n$ kali.
+        </p>
+
+        <h3>Sifat-sifat Bilangan Berpangkat</h3>
+
+        <h4>a. Perkalian</h4>
+        <div class="rumus-box">
+          $a^m \times a^n = a^{m+n}$
+          <br />Contoh: $5^3 \times 5^2 = 5^{3+2} = 5^5$
+        </div>
+
+        <h4>b. Pembagian</h4>
+        <div class="rumus-box">
+          $a^m : a^n = a^{m-n}$
+          <br />Contoh: $7^6 : 7^4 = 7^{6-4} = 7^2$
+        </div>
+
+        <h4>c. Pangkat dari Pangkat</h4>
+        <div class="rumus-box">
+          $(a^m)^n = a^{m \times n}$
+          <br />Contoh: $(2^3)^4 = 2^{3 \times 4} = 2^{12}$
+        </div>
+
+        <h4>d. Pangkat dari Perkalian</h4>
+        <div class="rumus-box">
+          $(a \times b)^n = a^n \times b^n$
+          <br />Contoh: $(3 \times 5)^2 = 3^2 \times 5^2 = 9 \times 25 = 225$
+        </div>
+
+        <h4>e. Pangkat dari Pembagian</h4>
+        <div class="rumus-box">
+          $(\frac{a}{b})^n = \frac{a^n}{b^n}$
+          <br />Contoh: $(\frac{4}{3})^2 = \frac{4^2}{3^2} = \frac{16}{9}$
+        </div>
+
+        <h4>f. Pangkat Nol</h4>
+        <div class="rumus-box">
+          $a^0 = 1$ (untuk $a \neq 0$)
+          <br />Contoh: $250^0 = 1$
+        </div>
+
+        <h4>g. Pangkat Negatif</h4>
+        <div class="rumus-box">
+          $a^{-n} = \frac{1}{a^n}$ (untuk $a \neq 0$)
+          <br />Contoh: $3^{-2} = \frac{1}{3^2} = \frac{1}{9}$
+        </div>
+      </section>
+
+      <section class="materi-section">
+        <h2>2. Pangkat Pecahan (Hubungan Pangkat & Akar)</h2>
+        <p>
+          Pangkat pecahan adalah cara lain untuk menulis bentuk akar. Ini adalah
+          konsep kunci yang menghubungkan keduanya.
+        </p>
+
+        <h4>a. Bentuk $a^{\frac{1}{n}}$</h4>
+        <div class="rumus-box">
+          $a^{\frac{1}{n}} = \sqrt[n]{a}$
+          <br />Contoh: $64^{\frac{1}{3}} = \sqrt[3]{64} = 4$
+        </div>
+
+        <h4>b. Bentuk $a^{\frac{m}{n}}$</h4>
+        <div class="rumus-box">
+          $a^{\frac{m}{n}} = \sqrt[n]{a^m}$ atau $a^{\frac{m}{n}} =
+          (\sqrt[n]{a})^m$
+          <br />Contoh: $8^{\frac{2}{3}} = (\sqrt[3]{8})^2 = (2)^2 = 4$
+        </div>
+      </section>
+
+      <section class="materi-section">
+        <h2>3. Bentuk Baku (Notasi Ilmiah)</h2>
+        <p>
+          Bentuk baku digunakan untuk menulis angka yang sangat besar atau
+          sangat kecil secara efisien. Ditulis sebagai $a \times 10^n$ dimana $1
+          \le a < 10$.
+        </p>
+
+        <h4>a. Bilangan Sangat Besar ($n$ positif)</h4>
+        <p>
+          Geser koma ke kiri sampai Anda mendapatkan angka antara 1 dan 10.
+          Jumlah geseran adalah pangkat $n$.
+        </p>
+        <div class="rumus-box">
+          Contoh: $345.000.000 = 3,45 \times 10^8$
+          <br />(Koma bergeser 8 kali ke kiri)
+        </div>
+
+        <h4>b. Bilangan Sangat Kecil ($n$ negatif)</h4>
+        <p>
+          Geser koma ke kanan sampai Anda mendapatkan angka antara 1 dan 10.
+          Jumlah geseran adalah pangkat $n$ (negatif).
+        </p>
+        <div class="rumus-box">
+          Contoh: $0,000056 = 5,6 \times 10^{-5}$
+          <br />(Koma bergeser 5 kali ke kanan)
+        </div>
+      </section>
+
+      <section class="materi-section">
+        <h2>4. Bentuk Akar</h2>
+        <p>
+          Bentuk akar adalah akar dari bilangan rasional yang hasilnya irasional
+          (contoh: $\sqrt{2}$, $\sqrt{3}$). $\sqrt{4}=2$ bukan bentuk akar
+          karena hasilnya rasional.
+        </p>
+
+        <h3>a. Menyederhanakan Bentuk Akar</h3>
+        <p>
+          Gunakan sifat $\sqrt{a \times b} = \sqrt{a} \times \sqrt{b}$. Cari
+          faktor yang merupakan bilangan kuadrat sempurna (4, 9, 16, 25, ...).
+        </p>
+        <div class="rumus-box">
+          Contoh: $\sqrt{48} = \sqrt{16 \times 3} = \sqrt{16} \times \sqrt{3} =
+          4\sqrt{3}$
+          <br />Contoh: $\sqrt{75} = \sqrt{25 \times 3} = \sqrt{25} \times
+          \sqrt{3} = 5\sqrt{3}$
+        </div>
+
+        <h3>b. Operasi Aljabar Bentuk Akar</h3>
+        <h4>Penjumlahan dan Pengurangan</h4>
+        <div class="rumus-box">
+          $a\sqrt{c} \pm b\sqrt{c} = (a \pm b)\sqrt{c}$
+          <br />Contoh: $8\sqrt{5} - 3\sqrt{5} = (8-3)\sqrt{5} = 5\sqrt{5}$
+        </div>
+
+        <h4>Perkalian</h4>
+        <div class="rumus-box">
+          $a\sqrt{b} \times c\sqrt{d} = (a \times c)\sqrt{b \times d}$
+          <br />Contoh: $(2\sqrt{3}) \times (4\sqrt{5}) = (2 \times 4)\sqrt{3
+          \times 5} = 8\sqrt{15}$
+        </div>
+
+        <h4>Pembagian</h4>
+        <div class="rumus-box">
+          $\frac{\sqrt{a}}{\sqrt{b}} = \sqrt{\frac{a}{b}}$
+          <br />Contoh: $\frac{\sqrt{48}}{\sqrt{3}} = \sqrt{\frac{48}{3}} =
+          \sqrt{16} = 4$
+        </div>
+
+        <h3>c. Merasionalkan Penyebut</h3>
+        <h4>Bentuk $\frac{a}{\sqrt{b}}$</h4>
+        <div class="rumus-box">
+          $\frac{a}{\sqrt{b}} = \frac{a}{\sqrt{b}} \times
+          \frac{\sqrt{b}}{\sqrt{b}} = \frac{a\sqrt{b}}{b}$
+          <br />Contoh: $\frac{10}{\sqrt{2}} = \frac{10}{\sqrt{2}} \times
+          \frac{\sqrt{2}}{\sqrt{2}} = \frac{10\sqrt{2}}{2} = 5\sqrt{2}$
+        </div>
+
+        <h4>Bentuk $\frac{c}{a \pm \sqrt{b}}$</h4>
+        <div class="rumus-box">
+          Contoh: $\frac{4}{3 - \sqrt{5}} = \frac{4}{3 - \sqrt{5}} \times
+          \frac{3 + \sqrt{5}}{3 + \sqrt{5}} = \frac{4(3 + \sqrt{5})}{9 - 5} =
+          \frac{4(3 + \sqrt{5})}{4} = 3 + \sqrt{5}$
+        </div>
+
+        <h4>Bentuk $\frac{c}{\sqrt{a} \pm \sqrt{b}}$</h4>
+        <div class="rumus-box">
+          Contoh: $\frac{6}{\sqrt{5} + \sqrt{2}} = \frac{6}{\sqrt{5} + \sqrt{2}}
+          \times \frac{\sqrt{5} - \sqrt{2}}{\sqrt{5} - \sqrt{2}} =
+          \frac{6(\sqrt{5} - \sqrt{2})}{5 - 2} = \frac{6(\sqrt{5} -
+          \sqrt{2})}{3} = 2(\sqrt{5} - \sqrt{2})$
+        </div>
+      </section>
+
+      <section class="materi-section">
+        <h2>5. Tabel Referensi (Pangkat 1-5)</h2>
+        <p>
+          Tabel statis untuk referensi cepat. Tabel ini bisa digulir ke samping.
+        </p>
+
+        <div class="tabel-referensi-container">
+          <table>
+            <thead>
+              <tr>
+                <th>$x$</th>
+                <th>$x^2$ (Kuadrat)</th>
+                <th>$x^3$ (Kubik)</th>
+                <th>$x^4$</th>
+                <th>$x^5$</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>1</b></td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td><b>2</b></td>
+                <td>4</td>
+                <td>8</td>
+                <td>16</td>
+                <td>32</td>
+              </tr>
+              <tr>
+                <td><b>3</b></td>
+                <td>9</td>
+                <td>27</td>
+                <td>81</td>
+                <td>243</td>
+              </tr>
+              <tr>
+                <td><b>4</b></td>
+                <td>16</td>
+                <td>64</td>
+                <td>256</td>
+                <td>1024</td>
+              </tr>
+              <tr>
+                <td><b>5</b></td>
+                <td>25</td>
+                <td>125</td>
+                <td>625</td>
+                <td>3125</td>
+              </tr>
+              <tr>
+                <td><b>6</b></td>
+                <td>36</td>
+                <td>216</td>
+                <td>1296</td>
+                <td>7776</td>
+              </tr>
+              <tr>
+                <td><b>7</b></td>
+                <td>49</td>
+                <td>343</td>
+                <td>2401</td>
+                <td>16807</td>
+              </tr>
+              <tr>
+                <td><b>8</b></td>
+                <td>64</td>
+                <td>512</td>
+                <td>4096</td>
+                <td>32768</td>
+              </tr>
+              <tr>
+                <td><b>9</b></td>
+                <td>81</td>
+                <td>729</td>
+                <td>6561</td>
+                <td>59049</td>
+              </tr>
+              <tr>
+                <td><b>10</b></td>
+                <td>100</td>
+                <td>1000</td>
+                <td>10000</td>
+                <td>100000</td>
+              </tr>
+              <tr>
+                <td><b>11</b></td>
+                <td>121</td>
+                <td>1331</td>
+                <td>14641</td>
+                <td>161051</td>
+              </tr>
+              <tr>
+                <td><b>12</b></td>
+                <td>144</td>
+                <td>1728</td>
+                <td>20736</td>
+                <td>248832</td>
+              </tr>
+              <tr>
+                <td><b>13</b></td>
+                <td>169</td>
+                <td>2197</td>
+                <td>28561</td>
+                <td>371293</td>
+              </tr>
+              <tr>
+                <td><b>14</b></td>
+                <td>196</td>
+                <td>2744</td>
+                <td>38416</td>
+                <td>537824</td>
+              </tr>
+              <tr>
+                <td><b>15</b></td>
+                <td>225</td>
+                <td>3375</td>
+                <td>50625</td>
+                <td>759375</td>
+              </tr>
+              <tr>
+                <td><b>16</b></td>
+                <td>256</td>
+                <td>4096</td>
+                <td>65536</td>
+                <td>1048576</td>
+              </tr>
+              <tr>
+                <td><b>17</b></td>
+                <td>289</td>
+                <td>4913</td>
+                <td>83521</td>
+                <td>1419857</td>
+              </tr>
+              <tr>
+                <td><b>18</b></td>
+                <td>324</td>
+                <td>5832</td>
+                <td>104976</td>
+                <td>1889568</td>
+              </tr>
+              <tr>
+                <td><b>19</b></td>
+                <td>361</td>
+                <td>6859</td>
+                <td>130321</td>
+                <td>2476099</td>
+              </tr>
+              <tr>
+                <td><b>20</b></td>
+                <td>400</td>
+                <td>8000</td>
+                <td>160000</td>
+                <td>3200000</td>
+              </tr>
+              <tr>
+                <td><b>21</b></td>
+                <td>441</td>
+                <td>9261</td>
+                <td>194481</td>
+                <td>4084101</td>
+              </tr>
+              <tr>
+                <td><b>22</b></td>
+                <td>484</td>
+                <td>10648</td>
+                <td>234256</td>
+                <td>5153632</td>
+              </tr>
+              <tr>
+                <td><b>23</b></td>
+                <td>529</td>
+                <td>12167</td>
+                <td>279841</td>
+                <td>6436343</td>
+              </tr>
+              <tr>
+                <td><b>24</b></td>
+                <td>576</td>
+                <td>13824</td>
+                <td>331776</td>
+                <td>7962624</td>
+              </tr>
+              <tr>
+                <td><b>25</b></td>
+                <td>625</td>
+                <td>15625</td>
+                <td>390625</td>
+                <td>9765625</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="materi-section">
+        <h2>6. Kalkulator Pangkat Interaktif</h2>
+        <p>
+          Gunakan alat ini untuk menghitung pangkat yang sangat besar (misalnya,
+          $87^9$). Ini akan otomatis menampilkannya dalam Bentuk Baku, sesuai
+          materi di atas.
+        </p>
+
+        <div class="kalkulator-pangkat">
+          <div class="input-grup">
+            <label for="basis">Bilangan (x)</label>
+            <input type="number" id="basis" value="2" />
+          </div>
+          <span class="pangkat-simbol">^</span>
+          <div class="input-grup">
+            <label for="pangkat">Pangkat (n)</label>
+            <input type="number" id="pangkat" value="10" />
+          </div>
+          <button id="hitung-btn" class="btn">Hitung</button>
+        </div>
+
+        <div id="hasil-kalkulator" class="hasil-box"></div>
+      </section>
+    </div>
+
+    <script>
+      document
+        .getElementById("hitung-btn")
+        .addEventListener("click", function () {
+          const basis = parseFloat(document.getElementById("basis").value);
+          const pangkat = parseInt(document.getElementById("pangkat").value);
+          const hasilBox = document.getElementById("hasil-kalkulator");
+
+          if (isNaN(basis) || isNaN(pangkat)) {
+            hasilBox.innerHTML =
+              '<p class="hasil-error">Input tidak valid. Harap masukkan angka.</p>';
+            hasilBox.style.display = "block";
+            return;
+          }
+
+          // Hitung menggunakan Math.pow()
+          const hasil = Math.pow(basis, pangkat);
+
+          // Format ke Bentuk Baku (Notasi Ilmiah)
+          // .toExponential(4) berarti mengambil 4 angka di belakang koma
+          const notasiIlmiah = hasil.toExponential(4);
+
+          // Format angka penuh (jika tidak terlalu besar)
+          let angkaPenuh = "";
+          if (hasil < Number.MAX_SAFE_INTEGER) {
+            // toLocaleString('id-ID') akan menambahkan titik pemisah ribuan
+            angkaPenuh = hasil.toLocaleString("id-ID", {
+              maximumFractionDigits: 0,
+            });
+          } else {
+            angkaPenuh =
+              "Angka terlalu besar untuk ditampilkan penuh (lebih dari 16 digit).";
+          }
+
+          // Tampilkan hasil
+          hasilBox.innerHTML = `
+                <h4>Hasil dari $${basis}^${pangkat}$</h4>
+                <p><b>Bentuk Baku (Notasi Ilmiah):</b></p>
+                <div class="rumus-box">${notasiIlmiah}</div>
+                <p><b>Angka Penuh (Perkiraan):</b></p>
+                <div class="rumus-box">${angkaPenuh}</div>
+            `;
+          hasilBox.style.display = "block";
+
+          // Render MathJax untuk rumus di hasil
+          MathJax.Hub.Queue(["Typeset", MathJax.Hub, "hasil-kalkulator"]);
+        });
+    </script>
+  </body>
+</html>

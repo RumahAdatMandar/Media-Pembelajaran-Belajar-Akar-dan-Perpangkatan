@@ -1,0 +1,126 @@
+/* Import Font */
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Open+Sans:wght@400;700&display=swap");
+
+/* Reset dan Pengaturan Dasar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #1a1a2e; /* Latar belakang gelap utama */
+  color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- PERBAIKAN GAMBAR LATAR --- */
+/* Nama file sesuai screenshot Anda 'assets/gambar latar.jpg' */
+.background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Path '../' artinya 'keluar dari folder css' */
+  background-image: url("../assets/gambar latar.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.15; /* Membuat gambar jadi redup/transparan */
+  z-index: -1;
+}
+/* ------------------------------- */
+
+/* Kontainer Utama */
+.container {
+  width: 100%;
+  max-width: 1100px;
+  padding: 2rem;
+  text-align: center;
+  z-index: 1;
+}
+
+/* Header Utama */
+.main-header h1 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 3rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+.main-header p {
+  font-size: 1.1rem;
+  color: #c0c0c0;
+  line-height: 1.7;
+  max-width: 700px;
+  margin: 0 auto 3rem auto;
+}
+
+/* --- PERBAIKAN TATA LETAK GRID --- */
+.menu-grid {
+  display: grid;
+  /* Membuat 3 kolom, akan otomatis jadi 1 kolom di layar kecil */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+/* --------------------------------- */
+
+/* Kartu Menu */
+.menu-card {
+  background-color: #2a2a44; /* Warna kartu yang sedikit lebih terang */
+  border: 1px solid #4a4a6a;
+  border-radius: 10px;
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.menu-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.menu-card .icon {
+  font-size: 3.5rem;
+  color: #3498db; /* Warna ikon biru cerah */
+  margin-bottom: 1.5rem;
+}
+
+.menu-card h3 {
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.8rem;
+  color: #ffffff;
+  margin-bottom: 0.8rem;
+}
+
+.menu-card p {
+  font-size: 1rem;
+  color: #b0b0b0;
+  margin-bottom: 2rem;
+  flex-grow: 1; /* Mendorong tombol ke bagian bawah kartu */
+}
+
+/* Tombol Menu */
+.btn-menu {
+  display: inline-block;
+  background-color: #3498db; /* Biru cerah */
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn-menu:hover {
+  background-color: #2980b9; /* Biru lebih gelap saat disentuh */
+  transform: scale(1.05);
+}

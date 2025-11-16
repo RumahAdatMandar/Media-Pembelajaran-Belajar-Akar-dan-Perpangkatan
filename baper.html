@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aplikasi BAPER</title>
+    <link rel="stylesheet" href="css/baper.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <script
+      type="text/javascript"
+      async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+    ></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+          showMathMenu: false
+      });
+    </script>
+  </head>
+  <body>
+    <div class="app-container">
+      <header class="app-header">
+        <h1 class="app-title">BAPER</h1>
+        <p class="app-subtitle">Belajar Akar dan Perpangkatan</p>
+        <a href="index.html" class="btn-back">Kembali ke Menu</a>
+      </header>
+
+      <main class="app-content">
+        <div class="left-column">
+          <div class="spinner-container">
+            <div class="spinner-arrow-indicator"></div>
+            <div class="spinner" id="spinner"></div>
+            <button class="spin-button" id="spin-btn" title="Putar Roda">
+              <i class="fas fa-redo-alt"></i>
+            </button>
+          </div>
+
+          <div class="bank-soal-container" id="bank-soal">
+            <h3>Bank Soal</h3>
+            <div class="bank-box-wrapper">
+              <div class="bank-box" id="box-red" title="Akar Kuadrat">
+                Merah
+              </div>
+              <div class="bank-box" id="box-yellow" title="Akar Kubik">
+                Kuning
+              </div>
+              <div class="bank-box" id="box-green" title="Akar Pangkat n">
+                Hijau
+              </div>
+            </div>
+          </div>
+
+          <div class="skor-container">
+            <h3>Skor Saat Ini</h3>
+            <div class="skor-display" id="skor-display">
+              <span id="skor-benar">0</span> Benar /
+              <span id="total-soal">0</span> Soal
+            </div>
+            <button class="simpan-skor-btn" id="simpan-skor-btn">
+              <i class="fas fa-save"></i> Simpan Skor
+            </button>
+          </div>
+        </div>
+
+        <div class="right-column">
+          <div class="soal-hasil-container">
+            <div class="display-grup" id="soal-grup">
+              <span class="label">SOAL</span>
+              <div class="display-box" id="soal-box">
+                <p id="soal-text">
+                  Tekan panah di roda untuk mendapatkan soal!
+                </p>
+              </div>
+            </div>
+            <div class="display-grup" id="hasil-grup">
+              <span class="label">HASIL</span>
+              <div class="display-box">
+                <input
+                  type="text"
+                  id="jawaban-input"
+                  placeholder="Ketik jawabanmu..."
+                />
+              </div>
+            </div>
+            <button class="cek-jawaban-btn" id="cek-btn">Cek Jawaban</button>
+            <div class="pembahasan-box" id="pembahasan-box"></div>
+          </div>
+
+          <div class="popup-button-grup">
+            <button class="referensi-btn" id="open-referensi-btn">
+              <i class="fas fa-table-list"></i> Buka Tabel Referensi
+            </button>
+            <button class="referensi-btn tips-btn" id="open-tips-btn">
+              <i class="fas fa-lightbulb"></i> Tips & Trik Menjawab
+            </button>
+            <button
+              class="referensi-btn leaderboard-btn"
+              id="open-leaderboard-btn"
+            >
+              <i class="fas fa-trophy"></i> Papan Peringkat
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="modal-overlay" id="referensi-modal">
+      <div class="modal-content">
+        <button class="modal-close-btn" id="close-referensi">&times;</button>
+        <h2><i class="fas fa-table-list"></i> Tabel Referensi Super Lengkap</h2>
+        <p>
+          Gunakan tabel ini untuk membantumu menemukan jawaban. Tabel bisa
+          digulir ke samping!
+        </p>
+        <div class="modal-table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>x</th>
+                <th>x²</th>
+                <th>x³</th>
+                <th>x⁴</th>
+                <th>x⁵</th>
+                <th>x⁶</th>
+                <th>x⁷</th>
+                <th>x⁸</th>
+                <th>x⁹</th>
+                <th>x¹⁰</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>2</b></td>
+                <td>4</td>
+                <td>8</td>
+                <td>16</td>
+                <td>32</td>
+                <td>64</td>
+                <td>128</td>
+                <td>256</td>
+                <td>512</td>
+                <td>1024</td>
+              </tr>
+              <tr>
+                <td><b>3</b></td>
+                <td>9</td>
+                <td>27</td>
+                <td>81</td>
+                <td>243</td>
+                <td>729</td>
+                <td>2187</td>
+                <td>6561</td>
+                <td>19683</td>
+                <td>59049</td>
+              </tr>
+              <tr>
+                <td><b>4</b></td>
+                <td>16</td>
+                <td>64</td>
+                <td>256</td>
+                <td>1024</td>
+                <td>4096</td>
+                <td>16384</td>
+                <td>65536</td>
+                <td>262144</td>
+                <td>1048576</td>
+              </tr>
+              <tr>
+                <td><b>5</b></td>
+                <td>25</td>
+                <td>125</td>
+                <td>625</td>
+                <td>3125</td>
+                <td>15625</td>
+                <td>78125</td>
+                <td>390625</td>
+                <td>1953125</td>
+                <td>9765625</td>
+              </tr>
+              <tr>
+                <td><b>6</b></td>
+                <td>36</td>
+                <td>216</td>
+                <td>1296</td>
+                <td>7776</td>
+                <td>46656</td>
+                <td>279936</td>
+                <td>1679616</td>
+                <td>10077696</td>
+                <td>60466176</td>
+              </tr>
+              <tr>
+                <td><b>7</b></td>
+                <td>49</td>
+                <td>343</td>
+                <td>2401</td>
+                <td>16807</td>
+                <td>117649</td>
+                <td>823543</td>
+                <td>5764801</td>
+                <td>40353607</td>
+                <td>282475249</td>
+              </tr>
+              <tr>
+                <td><b>8</b></td>
+                <td>64</td>
+                <td>512</td>
+                <td>4096</td>
+                <td>32768</td>
+                <td>262144</td>
+                <td>2097152</td>
+                <td>16777216</td>
+                <td>134217728</td>
+                <td>1073741824</td>
+              </tr>
+              <tr>
+                <td><b>9</b></td>
+                <td>81</td>
+                <td>729</td>
+                <td>6561</td>
+                <td>59049</td>
+                <td>531441</td>
+                <td>4782969</td>
+                <td>43046721</td>
+                <td>387420489</td>
+                <td>3486784401</td>
+              </tr>
+              <tr>
+                <td><b>10</b></td>
+                <td>100</td>
+                <td>1000</td>
+                <td>10000</td>
+                <td>100000</td>
+                <td>1000000</td>
+                <td>10000000</td>
+                <td>100000000</td>
+                <td>1000000000</td>
+                <td>10000000000</td>
+              </tr>
+              <tr>
+                <td><b>11</b></td>
+                <td>121</td>
+                <td>1331</td>
+                <td>14641</td>
+                <td>161051</td>
+                <td>1771561</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><b>12</b></td>
+                <td>144</td>
+                <td>1728</td>
+                <td>20736</td>
+                <td>248832</td>
+                <td>2985984</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><b>13</b></td>
+                <td>169</td>
+                <td>2197</td>
+                <td>28561</td>
+                <td>371293</td>
+                <td>4826809</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><b>14</b></td>
+                <td>196</td>
+                <td>2744</td>
+                <td>38416</td>
+                <td>537824</td>
+                <td>7529536</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><b>15</b></td>
+                <td>225</td>
+                <td>3375</td>
+                <td>50625</td>
+                <td>759375</td>
+                <td>11390625</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><b>16</b></td>
+                <td>256</td>
+                <td>4096</td>
+                <td>65536</td>
+                <td>1048576</td>
+                <td>16777216</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><b>17</b></td>
+                <td>289</td>
+                <td>4913</td>
+                <td>83521</td>
+                <td>1419857</td>
+                <td>24137569</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><b>18</b></td>
+                <td>324</td>
+                <td>5832</td>
+                <td>104976</td>
+                <td>1889568</td>
+                <td>34012224</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><b>19</b></td>
+                <td>361</td>
+                <td>6859</td>
+                <td>130321</td>
+                <td>2476099</td>
+                <td>47045881</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><b>20</b></td>
+                <td>400</td>
+                <td>8000</td>
+                <td>160000</td>
+                <td>3200000</td>
+                <td>64000000</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><b>21</b></td>
+                <td>441</td>
+                <td>9261</td>
+                <td>194481</td>
+                <td>4084101</td>
+                <td>85766121</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><b>22</b></td>
+                <td>484</td>
+                <td>10648</td>
+                <td>234256</td>
+                <td>5153632</td>
+                <td>113379904</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><b>23</b></td>
+                <td>529</td>
+                <td>12167</td>
+                <td>279841</td>
+                <td>6436343</td>
+                <td>148035889</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><b>24</b></td>
+                <td>576</td>
+                <td>13824</td>
+                <td>331776</td>
+                <td>7962624</td>
+                <td>191102976</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><b>25</b></td>
+                <td>625</td>
+                <td>15625</td>
+                <td>390625</td>
+                <td>9765625</td>
+                <td>244140625</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+                <td>...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="tips-modal">
+      <div class="modal-content">
+        <button class="modal-close-btn" id="close-tips">&times;</button>
+        <h2><i class="fas fa-lightbulb"></i> Tips & Trik Menjawab Soal</h2>
+
+        <div class="tips-content">
+          <h3>MERAH: Cara Cepat Mencari Akar Kuadrat (Contoh: $\sqrt{576}$)</h3>
+          <p>Mencari akar kuadrat dari 576:</p>
+          <ul>
+            <li>
+              <b>Langkah 1: Lihat 1 Angka Terakhir.</b> <br />Soal akar kuadrat
+              dari 57<b>6</b>. Angka terakhirnya <b>6</b>. <br />Cari di tabel
+              <b>x²</b>, pangkat 2 mana yang hasil akhirnya 6? Ada dua: 4² = 1<b
+                >6</b
+              >
+              dan 6² = 3<b>6</b>. <br />Jadi, <b>angka terakhir</b> jawabanmu
+              bisa <b>4</b> atau <b>6</b>.
+            </li>
+            <li>
+              <b>Langkah 2: Abaikan 2 Angka Terakhir, Lihat Sisanya.</b>
+              <br />Soal akar kuadrat dari <b>5</b>76. Setelah 76 diabaikan,
+              sisanya <b>5</b>.
+            </li>
+            <li>
+              <b
+                >Langkah 3: Cari Pangkat 2 yang Mendekati 5 (tapi tidak
+                lebih).</b
+              >
+              <br />1² = 1<br />2² = 4<br />3² = 9 (Terlalu besar!) <br />Maka,
+              kita ambil yang 2²=4. <b>Angka pertama</b> jawabanmu PASTI
+              <b>2</b>.
+            </li>
+            <li>
+              <b>Langkah 4: Gabungkan & Uji.</b> <br />Angka pertama = <b>2</b>.
+              Kemungkinan angka terakhir = <b>4</b> atau <b>6</b>.
+              <br />Jawabannya bisa <b>24</b> atau <b>26</b>. <br />Cek di
+              tabel: 24² = 576. Jawabannya <b>24</b>.
+            </li>
+          </ul>
+
+          <h3>
+            KUNING: Cara Cepat Mencari Akar Kubik (Contoh: $\sqrt[3]{17576}$)
+          </h3>
+          <p>Mencari akar pangkat 3 dari 17576:</p>
+          <ul>
+            <li>
+              <b>Langkah 1: Lihat 1 Angka Terakhir.</b> <br />Soal akar pangkat
+              3 dari 1757<b>6</b>. Angka terakhirnya <b>6</b>. <br />Cari di
+              tabel <b>x³</b>, pangkat 3 mana yang hasil akhirnya 6? Hanya
+              <b>6³ = 216</b>. <br />Jadi, <b>angka terakhir</b> jawabanmu PASTI
+              <b>6</b>.
+            </li>
+            <li>
+              <b>Langkah 2: Abaikan 3 Angka Terakhir, Lihat Sisanya.</b>
+              <br />Soal akar pangkat 3 dari <b>17</b>576. Sisanya <b>17</b>.
+            </li>
+            <li>
+              <b
+                >Langkah 3: Cari Pangkat 3 yang Mendekati 17 (tapi tidak
+                lebih).</b
+              >
+              <br />1³ = 1<br />2³ = 8<br />3³ = 27 (Terlalu besar!) <br />Maka,
+              kita ambil yang 2³=8. <b>Angka pertama</b> jawabanmu PASTI
+              <b>2</b>.
+            </li>
+            <li>
+              <b>Langkah 4: Gabungkan.</b> <br />Angka pertama = <b>2</b>. Angka
+              terakhir = <b>6</b>. Jawabannya <b>26</b>.
+            </li>
+          </ul>
+
+          <h3>HIJAU: Cara Mencari Akar Pangkat n (Contoh: $\sqrt[5]{3125}$)</h3>
+          <p>Mencari akar pangkat 5 dari 3125:</p>
+          <ul>
+            <li>
+              <b>Langkah 1: Lihat Pangkat Akarnya.</b> <br />Soal akar pangkat
+              <b>5</b> dari 3125. Kita akan fokus pada kolom <b>x⁵</b>.
+            </li>
+            <li>
+              <b>Langkah 2: Cari Angka Soal di Kolom Tersebut.</b> <br />Buka
+              "Tabel Referensi" dan cari angka <b>3125</b> di kolom <b>x⁵</b>.
+            </li>
+            <li>
+              <b>Langkah 3: Lihat Nilai x yang Sejajar.</b> <br />Anda akan
+              menemukan 3125 sejajar dengan x = <b>5</b>. Jawabannya <b>5</b>.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="leaderboard-modal">
+      <div class="modal-content">
+        <button class="modal-close-btn" id="close-leaderboard">&times;</button>
+        <h2><i class="fas fa-trophy"></i> Papan Peringkat</h2>
+        <p>
+          Skor tertinggi yang tersimpan di browser ini. Skor akan di-reset jika
+          cache browser dihapus.
+        </p>
+        <div class="leaderboard-list" id="leaderboard-list"></div>
+      </div>
+    </div>
+
+    <script>
+      // --- Variabel Global ---
+      let soalSekarang = null;
+      let isSpinning = false;
+      const segmentColors = ["red", "yellow", "green"]; // 3 Warna
+      const segmentAngle = 120; // 360 / 3 segmen
+
+      // --- PERBAIKAN LOGIKA PUTARAN ---
+      let currentRotation = 0; // Variabel baru untuk melacak total putaran
+
+      // --- Variabel SKOR & PAPAN PERINGKAT ---
+      let skorBenar = 0;
+      let totalSoal = 0;
+
+      // --- Elemen DOM ---
+      const spinner = document.getElementById("spinner");
+      const spinBtn = document.getElementById("spin-btn");
+      const soalText = document.getElementById("soal-text");
+      const jawabanInput = document.getElementById("jawaban-input");
+      const cekBtn = document.getElementById("cek-btn");
+      const pembahasanBox = document.getElementById("pembahasan-box");
+      const bankSoalContainer = document.getElementById("bank-soal");
+
+      // --- Elemen DOM Modal ---
+      const referensiModal = document.getElementById("referensi-modal");
+      const openReferensiBtn = document.getElementById("open-referensi-btn");
+      const closeReferensiBtn = document.getElementById("close-referensi");
+      const tipsModal = document.getElementById("tips-modal");
+      const openTipsBtn = document.getElementById("open-tips-btn");
+      const closeTipsBtn = document.getElementById("close-tips");
+
+      // --- Elemen DOM Skor & Papan Peringkat ---
+      const skorBenarDisplay = document.getElementById("skor-benar");
+      const totalSoalDisplay = document.getElementById("total-soal");
+      const simpanSkorBtn = document.getElementById("simpan-skor-btn");
+      const leaderboardModal = document.getElementById("leaderboard-modal");
+      const openLeaderboardBtn = document.getElementById(
+        "open-leaderboard-btn"
+      );
+      const closeLeaderboardBtn = document.getElementById("close-leaderboard");
+      const leaderboardList = document.getElementById("leaderboard-list");
+
+      // --- Event Listeners ---
+      spinBtn.addEventListener("click", putarRoda);
+      cekBtn.addEventListener("click", cekJawaban);
+      jawabanInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") cekJawaban();
+      });
+
+      // --- Event Listeners Modal ---
+      openReferensiBtn.addEventListener(
+        "click",
+        () => (referensiModal.style.display = "flex")
+      );
+      closeReferensiBtn.addEventListener(
+        "click",
+        () => (referensiModal.style.display = "none")
+      );
+      referensiModal.addEventListener("click", (e) => {
+        if (e.target === referensiModal) referensiModal.style.display = "none";
+      });
+
+      openTipsBtn.addEventListener(
+        "click",
+        () => (tipsModal.style.display = "flex")
+      );
+      closeTipsBtn.addEventListener(
+        "click",
+        () => (tipsModal.style.display = "none")
+      );
+      tipsModal.addEventListener("click", (e) => {
+        if (e.target === tipsModal) tipsModal.style.display = "none";
+      });
+
+      // --- Event Listeners Papan Peringkat ---
+      openLeaderboardBtn.addEventListener("click", tampilkanPapanPeringkat);
+      closeLeaderboardBtn.addEventListener(
+        "click",
+        () => (leaderboardModal.style.display = "none")
+      );
+      leaderboardModal.addEventListener("click", (e) => {
+        if (e.target === leaderboardModal)
+          leaderboardModal.style.display = "none";
+      });
+      simpanSkorBtn.addEventListener("click", simpanSkor);
+
+      // =============================================
+      // --- SISTEM GENERATOR SOAL (SUDAH DISESUAIKAN) ---
+      // =============================================
+      function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      function generateAkarKuadrat() {
+        // MERAH
+        const x = getRandomInt(2, 25);
+        const hasil = Math.pow(x, 2);
+        return {
+          soal: `Berapakah $\\sqrt{${hasil}}$?`,
+          jawaban: x.toString(),
+          pembahasan: `<b>Penjelasan (Cek Tabel):</b><br>
+                    1. Soal adalah akar pangkat 2 (kuadrat). Kita fokus pada kolom <b>x²</b> di Tabel Referensi.<br>
+                    2. Cari angka <b>${hasil}</b> di kolom <b>x²</b>.<br>
+                    3. Angka yang sejajar di kolom <b>x</b> adalah <b>${x}</b>.`,
+        };
+      }
+
+      function generateAkarKubik() {
+        // KUNING
+        const x = getRandomInt(2, 25);
+        const hasil = Math.pow(x, 3);
+        return {
+          soal: `Berapakah $\\sqrt[3]{${hasil}}$?`,
+          jawaban: x.toString(),
+          pembahasan: `<b>Penjelasan (Cek Tabel):</b><br>
+                    1. Soal adalah akar pangkat 3 (kubik). Kita fokus pada kolom <b>x³</b> di Tabel Referensi.<br>
+                    2. Cari angka <b>${hasil}</b> di kolom <b>x³</b>.<br>
+                    3. Angka yang sejajar di kolom <b>x</b> adalah <b>${x}</b>.`,
+        };
+      }
+
+      function generateAkarPangkatN() {
+        // HIJAU
+        const x = getRandomInt(2, 25);
+        const n = getRandomInt(4, 10);
+        const hasil = Math.pow(x, n);
+        const hasilFormatted =
+          hasil > 9999999999
+            ? hasil.toExponential(4)
+            : hasil.toLocaleString("id-ID");
+        return {
+          soal: `Berapakah $\\sqrt[${n}]{${hasilFormatted}}$?`,
+          jawaban: x.toString(),
+          pembahasan: `<b>Penjelasan (Cek Tabel):</b><br>
+                    1. Soal adalah akar pangkat <b>${n}</b>. Kita fokus pada kolom <b>x<sup>${n}</sup></b> di Tabel Referensi.<br>
+                    2. Cari angka <b>${hasilFormatted}</b> (atau yang mendekati) di kolom <b>x<sup>${n}</sup></b>.<br>
+                    3. Angka yang sejajar di kolom <b>x</b> adalah <b>${x}</b>.`,
+        };
+      }
+
+      function getSoalByWarna(warna) {
+        switch (warna) {
+          case "red":
+            bankSoalContainer.className = "bank-soal-container highlight-red";
+            return generateAkarKuadrat();
+          case "yellow":
+            bankSoalContainer.className =
+              "bank-soal-container highlight-yellow";
+            return generateAkarKubik();
+          case "green":
+            bankSoalContainer.className = "bank-soal-container highlight-green";
+            return generateAkarPangkatN();
+          default:
+            return generateAkarKuadrat();
+        }
+      }
+
+      // =============================================
+      // --- FUNGSI SKOR & PAPAN PERINGKAT ---
+      // =============================================
+
+      function updateSkor() {
+        skorBenarDisplay.textContent = skorBenar;
+        totalSoalDisplay.textContent = totalSoal;
+      }
+
+      function simpanSkor() {
+        if (skorBenar === 0) {
+          alert("Skor Anda masih 0. Jawab soal dengan benar terlebih dahulu!");
+          return;
+        }
+        const namaPemain = prompt(
+          "Masukkan namamu untuk disimpan di Papan Peringkat:",
+          "Siswa"
+        );
+        if (namaPemain === null || namaPemain.trim() === "") {
+          return; // Batal
+        }
+
+        const leaderboard = dapatkanPapanPeringkat();
+        leaderboard.push({ nama: namaPemain, skor: skorBenar });
+        leaderboard.sort((a, b) => b.skor - a.skor);
+        const top5 = leaderboard.slice(0, 5);
+        localStorage.setItem("baperLeaderboard", JSON.stringify(top5));
+        tampilkanPapanPeringkat();
+      }
+
+      function dapatkanPapanPeringkat() {
+        const data = localStorage.getItem("baperLeaderboard");
+        return data ? JSON.parse(data) : [];
+      }
+
+      function tampilkanPapanPeringkat() {
+        const leaderboard = dapatkanPapanPeringkat();
+        leaderboardList.innerHTML = ""; // Kosongkan daftar
+
+        if (leaderboard.length === 0) {
+          leaderboardList.innerHTML =
+            '<p class="no-skor">Belum ada skor yang disimpan.</p>';
+        } else {
+          const ol = document.createElement("ol");
+          leaderboard.forEach((item) => {
+            const li = document.createElement("li");
+            li.innerHTML = `<span class="nama">${item.nama}</span><span class="skor">${item.skor} Benar</span>`;
+            ol.appendChild(li);
+          });
+          leaderboardList.appendChild(ol);
+        }
+        leaderboardModal.style.display = "flex";
+      }
+
+      // =============================================
+      // --- FUNGSI UTAMA APLIKASI (PERBAIKAN PUTARAN) ---
+      // =============================================
+
+      function putarRoda() {
+        if (isSpinning) return;
+        isSpinning = true;
+        resetTampilan();
+
+        // --- INI PERBAIKANNYA ---
+        // 1. Tentukan jumlah putaran baru (minimal 5 putaran)
+        const randomSpinAmount = Math.floor(Math.random() * 360) + 360 * 5;
+        // 2. TAMBAHKAN ke total putaran sebelumnya
+        currentRotation += randomSpinAmount;
+
+        const finalDeg = currentRotation % 360;
+        let warnaHasil;
+
+        if (finalDeg >= 0 && finalDeg < 120) {
+          warnaHasil = "red";
+        } else if (finalDeg >= 120 && finalDeg < 240) {
+          warnaHasil = "yellow";
+        } else {
+          warnaHasil = "green";
+        }
+
+        // 3. Terapkan transisi dan putar ke total yang BARU
+        spinner.style.transition =
+          "transform 4s cubic-bezier(0.33, 1, 0.68, 1)";
+        spinner.style.transform = `rotate(${currentRotation}deg)`;
+        // ------------------------
+
+        setTimeout(() => {
+          soalSekarang = getSoalByWarna(warnaHasil);
+          tampilkanSoal();
+          isSpinning = false;
+
+          // HAPUS reset transform. Biarkan spinner "mengingat"
+          // posisi putaran totalnya (misal 3950deg)
+        }, 4000);
+      }
+
+      function resetTampilan() {
+        pembahasanBox.style.display = "none";
+        pembahasanBox.innerHTML = "";
+        jawabanInput.value = "";
+        soalText.innerHTML = "Roda berputar...";
+        bankSoalContainer.className = "bank-soal-container";
+        document.getElementById("soal-grup").classList.remove("shake");
+      }
+
+      function tampilkanSoal() {
+        soalText.innerHTML = soalSekarang.soal;
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub, "soal-box"]);
+      }
+
+      function cekJawaban() {
+        if (!soalSekarang) {
+          alert("Putar roda terlebih dahulu!");
+          return;
+        }
+
+        const jawabanUser = jawabanInput.value.trim();
+        if (!jawabanUser) {
+          alert("Harap isi jawabanmu!");
+          return;
+        }
+
+        totalSoal++;
+        pembahasanBox.style.display = "block";
+
+        if (jawabanUser.toLowerCase() === soalSekarang.jawaban.toLowerCase()) {
+          skorBenar++;
+          pembahasanBox.innerHTML = soalSekarang.pembahasan.replace(
+            "<b>Penjelasan",
+            "<b>Benar!</b> Penjelasan"
+          );
+          pembahasanBox.className = "pembahasan-box benar";
+        } else {
+          pembahasanBox.innerHTML = `<b>Salah!</b> Jawabanmu (<b>${jawabanUser}</b>) kurang tepat. <br><br> ${soalSekarang.pembahasan}`;
+          pembahasanBox.className = "pembahasan-box salah";
+          document.getElementById("soal-grup").classList.add("shake");
+        }
+
+        updateSkor();
+        soalSekarang = null;
+      }
+    </script>
+  </body>
+</html>
