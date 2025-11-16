@@ -4,9 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aplikasi BAPER</title>
-
     <link rel="stylesheet" href="css/baper.css" />
-
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -25,7 +23,7 @@
     </script>
   </head>
   <body>
-    <div class="modal-overlay" id="name-modal" style="display: flex">
+    <div class="modal-overlay" id="name-modal">
       <div class="name-modal-content">
         <h2>Selamat Datang di BAPER!</h2>
         <p>
@@ -213,7 +211,6 @@
                 <td>10077696</td>
                 <td>60466176</td>
               </tr>
-              session
               <tr>
                 <td><b>7</b></td>
                 <td>49</td>
@@ -250,6 +247,7 @@
                 <td>387420489</td>
                 <td>3486784401</td>
               </tr>
+              Mulai Main
               <tr>
                 <td><b>10</b></td>
                 <td>100</td>
@@ -560,12 +558,10 @@
       let currentRotation = 0;
       let skorBenar = 0;
       let totalSoal = 0;
-
-      // --- Variabel Nama Pemain (BARU) ---
       let namaPemainSaatIni = "";
 
       // --- Elemen DOM ---
-      const appContainer = document.getElementById("app-container"); // Kontainer utama
+      const appContainer = document.getElementById("app-container");
       const spinner = document.getElementById("spinner");
       const spinBtn = document.getElementById("spin-btn");
       const soalText = document.getElementById("soal-text");
@@ -573,16 +569,12 @@
       const cekBtn = document.getElementById("cek-btn");
       const pembahasanBox = document.getElementById("pembahasan-box");
       const bankSoalContainer = document.getElementById("bank-soal");
-
-      // --- Elemen DOM Modal ---
       const referensiModal = document.getElementById("referensi-modal");
       const openReferensiBtn = document.getElementById("open-referensi-btn");
       const closeReferensiBtn = document.getElementById("close-referensi");
       const tipsModal = document.getElementById("tips-modal");
       const openTipsBtn = document.getElementById("open-tips-btn");
       const closeTipsBtn = document.getElementById("close-tips");
-
-      // --- Elemen DOM Skor & Papan Peringkat ---
       const skorBenarDisplay = document.getElementById("skor-benar");
       const totalSoalDisplay = document.getElementById("total-soal");
       const simpanSkorBtn = document.getElementById("simpan-skor-btn");
@@ -592,8 +584,6 @@
       );
       const closeLeaderboardBtn = document.getElementById("close-leaderboard");
       const leaderboardList = document.getElementById("leaderboard-list");
-
-      // --- Elemen DOM Modal Nama (BARU) ---
       const nameModal = document.getElementById("name-modal");
       const nameInput = document.getElementById("name-input");
       const startBtn = document.getElementById("start-btn");
@@ -604,9 +594,9 @@
         if (nama === "") {
           alert("Harap masukkan namamu!");
         } else {
-          namaPemainSaatIni = nama; // Simpan nama secara global
-          nameModal.style.display = "none"; // Sembunyikan modal nama
-          appContainer.style.display = "block"; // Tampilkan aplikasi utama
+          namaPemainSaatIni = nama;
+          nameModal.style.display = "none";
+          appContainer.style.display = "block";
         }
       });
 
@@ -650,7 +640,7 @@
       simpanSkorBtn.addEventListener("click", simpanSkor);
 
       // =============================================
-      // --- SISTEM GENERATOR SOAL (LOGIKA BARU) ---
+      // --- SISTEM GENERATOR SOAL (SOAL TERBATAS & PEMBAHASAN JELAS) ---
       // =============================================
       function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -746,10 +736,7 @@
           alert("Skor Anda masih 0. Jawab soal dengan benar terlebih dahulu!");
           return;
         }
-        // HAPUS prompt()
-        // const namaPemain = prompt("Masukkan namamu...", "Siswa");
 
-        // LANGSUNG GUNAKAN NAMA YANG SUDAH DISIMPAN
         const leaderboard = dapatkanPapanPeringkat();
         leaderboard.push({ nama: namaPemainSaatIni, skor: skorBenar });
 
@@ -757,11 +744,11 @@
         leaderboard.sort((a, b) => b.skor - a.skor);
 
         // --- INI PERBAIKANNYA ---
-        // HAPUS .slice(0, 5) AGAR SEMUA SKOR TERSIMPAN
-        // const top5 = leaderboard.slice(0, 5);
+        // Ambil 20 teratas, BUKAN 5
+        const top20 = leaderboard.slice(0, 20);
 
-        // Simpan kembali SELURUH leaderboard
-        localStorage.setItem("baperLeaderboard", JSON.stringify(leaderboard));
+        // Simpan kembali HANYA 20 teratas
+        localStorage.setItem("baperLeaderboard", JSON.stringify(top20));
 
         alert(`Skor ${skorBenar} untuk ${namaPemainSaatIni} telah disimpan!`);
 
@@ -841,7 +828,6 @@
 
       function tampilkanSoal() {
         soalText.innerHTML = soalSekarang.soal;
-        // Kita tetap pakai MathJax untuk SOAL agar terlihat bagus
         MathJax.Hub.Queue(["Typeset", MathJax.Hub, "soal-box"]);
       }
 
