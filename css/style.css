@@ -12,17 +12,15 @@ body {
   font-family: "Open Sans", sans-serif;
   background-color: #1a1a2e; /* Latar belakang gelap utama */
   color: #e0e0e0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
   padding: 2rem;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 /* Gambar Latar Belakang */
-.background-overlay {
+.background-overlay, /* Nama dari index.css */
+.background-image /* Nama dari referensi.html Anda */ {
   position: fixed;
   top: 0;
   left: 0;
@@ -36,13 +34,17 @@ body {
   z-index: -1;
 }
 
-/* Kontainer Utama */
+/* ======================================== */
+/* GAYA UNTUK index.html (MENU UTAMA) */
+/* ======================================== */
+
 .container {
   width: 100%;
   max-width: 1100px;
   padding: 2rem;
   text-align: center;
   z-index: 1;
+  margin: 0 auto; /* Menengahkan kontainer */
 }
 
 /* Header Utama */
@@ -119,4 +121,272 @@ body {
 .btn-menu:hover {
   background-color: #2980b9;
   transform: scale(1.05);
+}
+
+/* ======================================== */
+/* GAYA UNTUK HALAMAN MATERI & PETUNJUK */
+/* ======================================== */
+
+.materi-container {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background: rgba(42, 42, 68, 0.8); /* Latar gelap semi-transparan */
+  border: 1px solid #4a4a6a;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  color: #e0e0e0;
+  position: relative;
+}
+
+.materi-container h1 {
+  font-size: 2.5rem;
+  font-family: "Fredoka", sans-serif;
+  color: #ffffff;
+  border-bottom: 2px solid #00d1b2;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+.materi-container h1 .fas {
+  /* Ikon di judul */
+  color: #00d1b2;
+  margin-right: 0.5rem;
+}
+
+.materi-container h2 {
+  font-size: 2rem;
+  font-family: "Fredoka", sans-serif;
+  color: #00d1b2; /* Warna highlight */
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.materi-container h3 {
+  font-size: 1.5rem;
+  font-family: "Fredoka", sans-serif;
+  color: #ffffff;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.materi-container h4 {
+  font-size: 1.2rem;
+  color: #f0f0f0;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.materi-container p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+/* Kotak untuk menyorot rumus */
+.rumus-box {
+  background: #1a1a2e; /* Latar lebih gelap */
+  border-left: 5px solid #00d1b2;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border-radius: 0 5px 5px 0;
+  font-family: "Courier New", Courier, monospace; /* Font mono untuk rumus */
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+/* Tombol kembali di halaman materi */
+.btn.btn-back {
+  position: absolute;
+  top: 2.5rem;
+  right: 2.5rem;
+  background-color: #4a4a6a;
+  color: #e0e0e0;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+}
+.btn.btn-back:hover {
+  background-color: #5a5a7a;
+}
+
+/* Kontainer tabel agar bisa di-scroll */
+.tabel-referensi-container {
+  max-height: 400px; /* Batasi tinggi */
+  overflow: auto; /* Scroll vertikal & horizontal */
+  border: 1px solid #4a4a6a;
+  border-radius: 5px;
+  margin-top: 1rem;
+}
+
+.tabel-referensi-container table {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.tabel-referensi-container th,
+.tabel-referensi-container td {
+  border: 1px solid #4a4a6a;
+  padding: 0.75rem;
+}
+
+.tabel-referensi-container thead th {
+  background-color: #33334d;
+  color: #00d1b2;
+  position: sticky; /* Membuat header tabel tetap terlihat saat di-scroll */
+  top: 0;
+}
+
+.tabel-referensi-container tbody tr:nth-child(even) {
+  background-color: #2a2a44; /* Warna baris genap */
+}
+
+.tabel-referensi-container tbody tr:hover {
+  background-color: #3f3f5f; /* Warna saat di-hover */
+}
+
+/* Kalkulator di halaman referensi */
+.kalkulator-pangkat {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: #1a1a2e;
+  padding: 1.5rem;
+  border-radius: 5px;
+  border: 1px solid #4a4a6a;
+}
+.kalkulator-pangkat .input-grup {
+  display: flex;
+  flex-direction: column;
+}
+.kalkulator-pangkat label {
+  font-size: 0.9rem;
+  color: #c0c0c0;
+  margin-bottom: 0.5rem;
+}
+.kalkulator-pangkat input[type="number"] {
+  padding: 0.75rem;
+  border-radius: 5px;
+  border: 1px solid #4a4a6a;
+  background-color: #33334d;
+  color: #e0e0e0;
+  font-size: 1.2rem;
+  width: 150px;
+}
+.kalkulator-pangkat .pangkat-simbol {
+  font-size: 2rem;
+  color: #00d1b2;
+  padding-bottom: 0.5rem;
+}
+.kalkulator-pangkat .btn {
+  background-color: #00d1b2;
+  color: #1a1a2e;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.kalkulator-pangkat .btn:hover {
+  background-color: #00a896;
+}
+.hasil-box {
+  background-color: #2a2a44;
+  border: 1px solid #4a4a6a;
+  border-radius: 5px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  display: none;
+}
+.hasil-box h4 {
+  margin-top: 0;
+}
+.hasil-box .rumus-box {
+  background-color: #1a1a2e;
+}
+.hasil-box .hasil-error {
+  color: #ffc107;
+  font-weight: 600;
+}
+
+/* List untuk petunjuk.html */
+.petunjuk-list {
+  margin: 1rem 0 1rem 1.5rem;
+  padding-left: 1rem;
+}
+.petunjuk-list li {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 0.75rem;
+}
+.petunjuk-list li .fas {
+  /* Ikon di list */
+  color: #ffc107; /* Kuning */
+  margin-right: 0.5rem;
+}
+
+/* ======================================== */
+/* --- KODE RESPONSif UNTUK HP --- */
+/* ======================================== */
+@media (max-width: 768px) {
+  body {
+    padding: 0.5rem;
+  }
+
+  /* Perbaikan Responsif index.html */
+  .container {
+    padding: 1.5rem;
+  }
+  .main-header h1 {
+    font-size: 2.5rem;
+  }
+  .main-header p {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  .menu-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .menu-card {
+    padding: 2rem 1rem;
+  }
+
+  /* Perbaikan Responsif referensi.html & petunjuk.html */
+  .materi-container {
+    padding: 1.5rem;
+    margin: 1rem auto;
+  }
+  .materi-container h1 {
+    font-size: 2rem;
+  }
+  .materi-container h2 {
+    font-size: 1.7rem;
+  }
+  .materi-container h3 {
+    font-size: 1.3rem;
+  }
+  .btn.btn-back {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    width: auto;
+  }
+  .kalkulator-pangkat .input-grup {
+    width: 100%;
+  }
+  .kalkulator-pangkat input[type="number"] {
+    width: 100%;
+  }
+  .kalkulator-pangkat .btn {
+    width: 100%;
+  }
 }
